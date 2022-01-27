@@ -1,0 +1,82 @@
+# file name: gui2.kv
+
+# class rules - definitions of
+# custom widgets
+<RedButton@Button>:
+    background_color: .8, 0, 0, 1
+    color: 0, .8, .1, 1
+    bold: True
+    font_size: 40
+    size_hint: (None, None)    
+    size: 60, 60
+    pos_hint: {'center_x': 0.5}
+
+<InfoLabel@Label>:
+    color: 1, 1, 1, 1
+    text_size: self.size
+    halign: 'left'
+    valign: 'center'
+    font_size: 40
+    bold: True
+
+# root widget
+<GuiLayout>:
+    canvas:
+        Color: 
+            rgba: .4, .4, .4, .7
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    orientation: 'vertical'
+    spacing: 10
+    padding: 10
+    
+    # the buttons
+    RelativeLayout: 
+        size_hint: None, None
+        size: 250, 250
+        pos_hint: {'center_x': .5}
+        spacing: 10
+        padding: 10
+
+        RedButton:
+            text: 'N'
+            pos_hint: {'center_x': .5, 'center_y': .75}
+            on_press: app.move_ufo('north')
+
+        RedButton:
+            text: 'W'
+            pos_hint: {'center_x': .25, 'center_y': .5}
+            on_press: app.move_ufo('west')
+
+        RedButton:
+            text: 'E'
+            pos_hint: {'center_x': .75, 'center_y': .5}
+            on_press: app.move_ufo('east')
+
+        RedButton:
+            text: 'S'
+            pos_hint: {'center_x': .5, 'center_y': .25}
+            on_press: app.move_ufo('south')
+
+    # the slider
+    Slider:
+        orientation: 'vertical'
+        min: 1
+        max: 8
+        value: 5
+        on_value: app.change_height(self.value)
+
+    # the labels
+    BoxLayout:
+        orientation: 'vertical'
+
+        InfoLabel:
+            text: 'X = ' + str(int(app.x))
+
+        InfoLabel:
+            text: 'Y = ' + str(int(app.y))
+
+        InfoLabel:
+            text: 'Z = ' + str(int(app.z))
